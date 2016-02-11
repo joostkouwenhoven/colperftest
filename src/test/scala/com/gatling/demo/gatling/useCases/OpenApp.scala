@@ -14,12 +14,34 @@ object OpenApp  {
         "X-CSRF-TOKEN" -> "${csrf_token}"
     )
 
-	val useCase = 
+	val useCase1 = 
         exec(
             http("Open Page")
             .get("/")
             .check(headerRegex("Set-Cookie", "CSRF-TOKEN=(.*); [P,p]ath=/").saveAs("csrf_token"))
             .headers("Accept" -> """application/json""")
              )
+     
+     	val useCase2 = 
+        exec(
+            http("Log In")
+			.post("/api/login")
+            .basicAuth("admin","admin")
+            .headers(header_csrf)
+            )
+            .get("/app/components/app/app.html")
+            .check(headerRegex("Set-Cookie", "CSRF-TOKEN=(.*); [P,p]ath=/").saveAs("csrf_token"))
+            
+	val useCase3 = 
+  exec(http("Get Projects")
+		.get("/api/projects?limit=5&page=1")
+        .headers(header_csrf)
+        )       
+        
+     	val useCase = 
+  exec(http("Log Out")
+		.post("/api/logout")
+        .headers(header_csrf)
+        .check(status.is(401)))
 
 }
