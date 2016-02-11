@@ -13,7 +13,7 @@ object LogIn  {
 
 	val useCase = 
         exec(
-            http("Log In")
+            http("Logging In")
 			.post("/api/login")
             .basicAuth("admin","admin")
             .headers(header_csrf)
