@@ -13,8 +13,8 @@ object OpenApp  {
         exec(
             http("Open Page")
             .get("/")
-            .check(headerRegex("Set-Cookie", "XSRF-TOKEN=(.?*);").saveAs("csrf_token"))
-            .check(headerRegex("Set-Cookie", "SESSION=(.?*);").saveAs("session"))
+            .check(headerRegex("Set-Cookie", "XSRF-TOKEN=(.*?);").saveAs("csrf_token"))
+            .check(headerRegex("Set-Cookie", "SESSION=(.*?);").saveAs("session"))
             .headers(Map("Accept" -> """application/json"""))
              )
      
@@ -24,13 +24,13 @@ object OpenApp  {
 			.post("/api/login")
             .basicAuth("admin","admin")
             .headers(Map("XSRF-TOKEN" -> "${csrf_token}", "SESSION" -> "${session}"))
-            .check(headerRegex("Set-Cookie", "SESSION=(.?*);").saveAs("session"))
+            .check(headerRegex("Set-Cookie", "SESSION=(.*?);").saveAs("session"))
             )
         exec(
             http("Confirm Login")           
             .get("/app/components/app/app.html")
             .headers(Map("XSRF-TOKEN" -> "${csrf_token}", "SESSION" -> "${session}"))
-            .check(headerRegex("Set-Cookie", "XSRF-TOKEN=(.?*);").saveAs("csrf_token"))
+            .check(headerRegex("Set-Cookie", "XSRF-TOKEN=(.*?);").saveAs("csrf_token"))
              )
 	val useCase3 = 
   exec(http("Get Projects")
