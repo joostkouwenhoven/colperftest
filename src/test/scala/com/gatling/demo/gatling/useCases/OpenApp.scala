@@ -24,7 +24,7 @@ object OpenApp  {
 			.post("/api/login")
             .basicAuth("admin","admin")
             .headers(Map("XSRF-TOKEN" -> "${csrf_token}", "SESSION" -> "${session}"))
-            .check(headerRegex("Set-Cookie", "SESSION=(.*?);").saveAs("session"))
+//            .check(headerRegex("Set-Cookie", "SESSION=(.*?);").saveAs("session"))
             )
         exec(
             http("Confirm Login")           
@@ -34,7 +34,7 @@ object OpenApp  {
              )
 	val useCase3 = 
   exec(http("Get Projects")
-		.get("/api/projects?limit=5&page=1")
+		.get("/api/projects")
         .headers(Map("XSRF-TOKEN" -> "${csrf_token}", "SESSION" -> "${session}"))
         )       
         
@@ -42,6 +42,6 @@ object OpenApp  {
   exec(http("Log Out")
 		.post("/api/logout")
         .headers(Map("XSRF-TOKEN" -> "${csrf_token}", "SESSION" -> "${session}"))
-        .check(status.is(401)))
+        .check(status.is(403)))
 
 }
