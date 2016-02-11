@@ -36,7 +36,7 @@ object OpenApp  {
         .headers(Map("XSRF-TOKEN" -> "${csrf_token}"))
         )       
         
-     	val useCase = 
+     	val useCase4 = 
   exec(http("Log Out")
 		.post("/api/logout")
         .headers(Map("XSRF-TOKEN" -> "${csrf_token}"))
