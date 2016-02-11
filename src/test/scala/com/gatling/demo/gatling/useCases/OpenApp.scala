@@ -22,24 +22,24 @@ object OpenApp  {
             http("Log In")
 			.post("/api/login")
             .basicAuth("admin","admin")
-            .headers(Map("X-XSRF-TOKEN" -> "${csrf_token}"))
+            .headers(Map("XSRF-TOKEN" -> "${csrf_token}"))
             )
         exec(
             http("Confirm Login")           
             .get("/app/components/app/app.html")
-            .headers(Map("X-XSRF-TOKEN" -> "${csrf_token}"))
+            .headers(Map("XSRF-TOKEN" -> "${csrf_token}"))
             .check(headerRegex("Set-Cookie", "XSRF-TOKEN=(.*); [P,p]ath=/").saveAs("csrf_token"))
              )
 	val useCase3 = 
   exec(http("Get Projects")
 		.get("/api/projects?limit=5&page=1")
-        .headers(Map("X-XSRF-TOKEN" -> "${csrf_token}"))
+        .headers(Map("XSRF-TOKEN" -> "${csrf_token}"))
         )       
         
      	val useCase = 
   exec(http("Log Out")
 		.post("/api/logout")
-        .headers(Map("X-XSRF-TOKEN" -> "${csrf_token}"))
+        .headers(Map("XSRF-TOKEN" -> "${csrf_token}"))
         .check(status.is(401)))
 
 }
