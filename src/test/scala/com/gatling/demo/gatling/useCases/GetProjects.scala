@@ -7,12 +7,12 @@ import jodd.util.URLDecoder
 import scala.concurrent.duration._
 
 
-object LogIn  {
+object GetProjects  {
 
 
 
 	val useCase = 
-  exec(http("Check Login")
+  exec(http("Get Projects")
 		.get("/api/projects?limit=5&page=1")
         .headers(header_csrf)
         )
