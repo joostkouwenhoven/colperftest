@@ -18,7 +18,7 @@ object OpenApp  {
         exec(
             http("Open Page")
             .get("/")
-            .check(headerRegex("Set-Cookie", "X-XSRF-TOKEN=(.*); [P,p]ath=/").saveAs("csrf_token"))
+            .check(headerRegex("Set-Cookie", "XSRF-TOKEN=(.*); [P,p]ath=/").saveAs("csrf_token"))
             .headers(Map("Accept" -> """application/json"""))
              )
      
@@ -30,7 +30,8 @@ object OpenApp  {
             .headers(header_csrf)
             )
             .get("/app/components/app/app.html")
-            .check(headerRegex("Set-Cookie", "X-XSRF-TOKEN=(.*); [P,p]ath=/").saveAs("csrf_token"))
+            .headers(header_csrf)
+            .check(headerRegex("Set-Cookie", "XSRF-TOKEN=(.*); [P,p]ath=/").saveAs("csrf_token"))
             
 	val useCase3 = 
   exec(http("Get Projects")
