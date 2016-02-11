@@ -21,7 +21,7 @@
 
 
         <!-- lt-dash url  -->
-        <targetsIoUrl>http://192.168.20.30:3000</targetsIoUrl>
+        <targetsIoUrl>http://192.168.2.30:3000</targetsIoUrl>
 
         <!-- Default Simulation class  -->
         <applicationSimulation>com.gatling.demo.gatling.setup.Columbus</applicationSimulation>
