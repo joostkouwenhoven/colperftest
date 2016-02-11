@@ -7,19 +7,19 @@ import jodd.util.URLDecoder
 import scala.concurrent.duration._
 
 
-object LogIn  {
+object OpenApp  {
 
-
+    val header_csrf = Map(
+        "Accept" -> """application/json""",
+        "X-CSRF-TOKEN" -> "${csrf_token}"
+    )
 
 	val useCase = 
         exec(
-            http("Log In")
-			.post("/api/login")
-            .basicAuth("admin","admin")
-            .headers(header_csrf)
-            )
-            .get("/app/components/app/app.html")
+            http("Open Page")
+            .get("/")
             .check(headerRegex("Set-Cookie", "CSRF-TOKEN=(.*); [P,p]ath=/").saveAs("csrf_token"))
-
+            .headers("Accept" -> """application/json""")
+             )
 
 }

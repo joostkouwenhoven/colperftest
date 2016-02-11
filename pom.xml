@@ -21,10 +21,10 @@
 
 
         <!-- lt-dash url  -->
-        <targetsIoUrl>http://192.168.2.30:3000</targetsIoUrl>
+        <targetsIoUrl>http://192.168.20.30:3000</targetsIoUrl>
 
         <!-- Default Simulation class  -->
-        <applicationSimulation>com.gatling.demo.gatling.setup.Portal</applicationSimulation>
+        <applicationSimulation>com.gatling.demo.gatling.setup.Columbus</applicationSimulation>
 
         <!-- Default test environment  -->
         <!--<activeEnvironment>local</activeEnvironment>-->
@@ -46,7 +46,7 @@
         <activeProfileId>debug</activeProfileId>
 
         <!-- Settings for the LTDashboard -->
-        <application.name>GATLING</application.name>
+        <application.name>Columbus</application.name>
         <application.version>1.0</application.version>
         
     </properties>
