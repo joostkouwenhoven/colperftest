@@ -32,6 +32,7 @@ object OpenApp  {
             .get("/app/components/app/app.html")
             .headers(header_csrf)
             .check(headerRegex("Set-Cookie", "XSRF-TOKEN=(.*); [P,p]ath=/").saveAs("csrf_token"))
+            )
             
 	val useCase3 = 
   exec(http("Get Projects")
