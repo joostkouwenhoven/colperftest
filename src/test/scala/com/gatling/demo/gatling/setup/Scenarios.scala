@@ -17,19 +17,10 @@ object Scenarios {
    * These are the scenarios run in 'normal' mode.
    */
  
-    val header_csrf = Map(
-        "Accept" -> """application/json""",
-        "X-CSRF-TOKEN" -> "${csrf_token}"
-    )   
    
   val acceptanceTestScenario = scenario("acceptanceTestScenario")
     .exec(OpenApp.useCase)
-    .pause(2)
-    .exec(LogIn.useCase)
-    .pause(2)
-    .exec(GetProjects.useCase)
-    .pause(2)
-    .exec(LogOut.useCase)
+
   /**
    * These are the scenarios run in 'debug' mode.
    */
