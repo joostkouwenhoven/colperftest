@@ -19,41 +19,13 @@ object Scenarios {
  
    
   val acceptanceTestScenario = scenario("acceptanceTestScenario")
-    .exec(
-      	val useCase1 = 
-        exec(
-            http("Open Page")
-            .get("/")
-            .check(headerRegex("Set-Cookie", "XSRF-TOKEN=(.?*);").saveAs("csrf_token"))
-            .headers(Map("Accept" -> """application/json"""))
-             )
-     
-     	val useCase2 = 
-        exec(
-            http("Log In")
-			.post("/api/login")
-            .basicAuth("admin","admin")
-            .headers(Map("XSRF-TOKEN" -> "${csrf_token}"))
-            )
-        exec(
-            http("Confirm Login")           
-            .get("/app/components/app/app.html")
-            .headers(Map("XSRF-TOKEN" -> "${csrf_token}"))
-            .check(headerRegex("Set-Cookie", "XSRF-TOKEN=(.?*);").saveAs("csrf_token"))
-             )
-	val useCase3 = 
-  exec(http("Get Projects")
-		.get("/api/projects?limit=5&page=1")
-        .headers(Map("XSRF-TOKEN" -> "${csrf_token}"))
-        )       
-        
-     	val useCase4 = 
-  exec(http("Log Out")
-		.post("/api/logout")
-        .headers(Map("XSRF-TOKEN" -> "${csrf_token}"))
-        .check(status.is(401)))
-        )
-
+    .exec(OpenApp.useCase1)
+    .pause(2)
+    .exec(OpenApp.useCase2)
+    .pause(2)
+    .exec(OpenApp.useCase3)
+    .pause(2)
+    .exec(OpenApp.useCase4)
   /**
    * These are the scenarios run in 'debug' mode.
    */
