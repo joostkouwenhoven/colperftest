@@ -28,7 +28,9 @@ object OpenApp  {
 			.post("/api/login")
             .basicAuth("admin","admin")
             .headers(header_csrf)
-            
+            )
+        exec(
+            http("Confirm Login")
             .get("/app/components/app/app.html")
             .headers(header_csrf)
             .check(headerRegex("Set-Cookie", "XSRF-TOKEN=(.*); [P,p]ath=/").saveAs("csrf_token"))
